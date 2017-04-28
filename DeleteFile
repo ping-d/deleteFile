@@ -1,0 +1,22 @@
+package net.thinkingcode.test;
+
+import java.io.File;
+
+public class DeleteFile {
+	public void delete(String path){
+		File file = new File(path);
+		if(file.isFile()){
+			file.delete();
+			System.out.println("delete file : "+ file.getPath());
+		}else{
+			if(!file.delete()){
+				File[] files = file.listFiles();
+				for(int i=0;i<files.length;i++){
+					delete(files[i].getPath());
+				}
+			}
+			new File(file.getPath()).delete();
+			System.out.println("delete directory : " + file.getPath());
+		}
+	}
+}
